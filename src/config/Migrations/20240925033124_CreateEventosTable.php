@@ -16,7 +16,8 @@ class CreateEventosTable extends AbstractMigration
         $table->addColumn('nome_evento', 'string')
             ->addColumn('data_inicio', 'datetime')
             ->addColumn('data_fim', 'datetime')
-            ->addColumn('descricao', 'text')
+            ->addColumn('descricao', 'text', ['null' => true])
+            ->addColumn('data_lembrete', 'datetime', ['null' => true])
             ->create();
     }
 }

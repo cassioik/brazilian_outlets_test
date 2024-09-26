@@ -24,6 +24,12 @@ ____
     - Docker version 27.3.1, build ce12230
     - Docker Compose version v2.29.7
 
-### Rodar:
-- `docker compose up -d`
-- `docker compose exec web composer install --ignore-platform-reqs`
+### Rodar projeto:
+- Rodar o projeto: `docker compose up -d`
+- Instalar as dependencias: `docker compose exec web composer install --ignore-platform-reqs`
+- Rodar migration: `docker compose exec web bin/cake migrations migrate`
+
+### Comandos uteis:
+- Refresh das migrations:
+    - `docker compose exec web bin/cake migrations rollback -t 0`
+    - `docker compose exec web bin/cake migrations migrate`
