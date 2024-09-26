@@ -6,6 +6,10 @@
 /tmp/*
 /vendor/*
 
+# Manter as pastas logs e tmp rastreadas
+!logs/.gitignore
+!tmp/.gitignore
+
 # OS generated files #
 ######################
 .DS_Store
