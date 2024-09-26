@@ -1,35 +1,30 @@
-# docker/Dockerfile
-FROM php:7.3-apache
+# Use a imagem oficial do PHP 8.0.3 com Apache
+FROM php:8.0.30-apache
 
-# Instalar dependências e extensões PHP
+# Instalar dependências do sistema
 RUN apt-get update && apt-get install -y \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libpng-dev \
     libicu-dev \
-    libzip-dev \
+    zip \
     unzip \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install gd intl zip pdo pdo_mysql
+    git \
+    && docker-php-ext-install intl pdo_mysql
 
-# Configurações do Apache
+# Habilitar o mod_rewrite do Apache para CakePHP
 RUN a2enmod rewrite
 
-# Configurações do PHP (caso tenha)
-# COPY ./php.ini /usr/local/etc/php/
+# Instalar o Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Defina o diretório de trabalho como a pasta de origem
+# Definir o diretório de trabalho
 WORKDIR /var/www/html
 
-# Instalar o Composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-
-# Copiar o código para o container
+# Copiar o projeto CakePHP para o container
 COPY ./src /var/www/html
 
-# Definir permissões
+# Ajustar permissões
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
+    && chmod -R 755 /var/www/html/tmp \
+    && chmod -R 755 /var/www/html/logs
 
-# Expor a porta padrão do Apache
+# Expor a porta 80
 EXPOSE 80
