@@ -10,6 +10,11 @@ services:
       - "8080:80"
     depends_on:
       - db
+    environment:
+      DB_HOST: db
+      DB_USERNAME: user
+      DB_PASSWORD: pass
+      DB_DATABASE: brazilian_outlets_db
 
   db:
     image: mysql:5.7
