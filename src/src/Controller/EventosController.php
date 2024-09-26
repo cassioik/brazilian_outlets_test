@@ -34,7 +34,7 @@ class EventosController extends AppController
     public function view($id = null)
     {
         $evento = $this->Eventos->get($id, [
-            'contain' => ['Lembretes'],
+            'contain' => [],
         ]);
 
         $this->set('evento', $evento);
@@ -49,9 +49,7 @@ class EventosController extends AppController
     {
         $evento = $this->Eventos->newEntity();
         if ($this->request->is('post')) {
-            $evento = $this->Eventos->patchEntity($evento, $this->request->getData(), [
-                'associated' => ['Lembretes']
-            ]);
+            $evento = $this->Eventos->patchEntity($evento, $this->request->getData());
             if ($this->Eventos->save($evento)) {
                 $this->Flash->success(__('The evento has been saved.'));
 
@@ -72,12 +70,10 @@ class EventosController extends AppController
     public function edit($id = null)
     {
         $evento = $this->Eventos->get($id, [
-            'contain' => ['Lembretes'],
+            'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $evento = $this->Eventos->patchEntity($evento, $this->request->getData(), [
-                'associated' => ['Lembretes']
-            ]);
+            $evento = $this->Eventos->patchEntity($evento, $this->request->getData());
             if ($this->Eventos->save($evento)) {
                 $this->Flash->success(__('The evento has been saved.'));
 

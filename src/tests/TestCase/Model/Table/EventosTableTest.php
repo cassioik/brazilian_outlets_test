@@ -24,7 +24,6 @@ class EventosTableTest extends TestCase
      */
     public $fixtures = [
         'app.Eventos',
-        'app.Lembretes',
     ];
 
     /**

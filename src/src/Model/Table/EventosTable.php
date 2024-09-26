@@ -9,8 +9,6 @@ use Cake\Validation\Validator;
 /**
  * Eventos Model
  *
- * @property \App\Model\Table\LembretesTable&\Cake\ORM\Association\HasMany $Lembretes
- *
  * @method \App\Model\Entity\Evento get($primaryKey, $options = [])
  * @method \App\Model\Entity\Evento newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Evento[] newEntities(array $data, array $options = [])
@@ -35,10 +33,6 @@ class EventosTable extends Table
         $this->setTable('eventos');
         $this->setDisplayField('nome_evento');
         $this->setPrimaryKey('id');
-
-        $this->hasMany('Lembretes', [
-            'foreignKey' => 'evento_id',
-        ]);
     }
 
     /**
@@ -71,8 +65,11 @@ class EventosTable extends Table
 
         $validator
             ->scalar('descricao')
-            ->requirePresence('descricao', 'create')
-            ->notEmptyString('descricao');
+            ->allowEmptyString('descricao');
+
+        $validator
+            ->dateTime('data_lembrete')
+            ->allowEmptyDateTime('data_lembrete');
 
         return $validator;
     }

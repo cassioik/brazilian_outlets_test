@@ -21,7 +21,6 @@ class EventosControllerTest extends TestCase
      */
     public $fixtures = [
         'app.Eventos',
-        'app.Lembretes',
     ];
 
     /**

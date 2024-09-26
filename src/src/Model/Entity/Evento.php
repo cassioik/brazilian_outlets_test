@@ -10,7 +10,8 @@ use Cake\ORM\Entity;
  * @property string $nome_evento
  * @property \Cake\I18n\FrozenTime $data_inicio
  * @property \Cake\I18n\FrozenTime $data_fim
- * @property string $descricao
+ * @property string|null $descricao
+ * @property \Cake\I18n\FrozenTime|null $data_lembrete
  *
  * @property \App\Model\Entity\Lembrete[] $lembretes
  */
@@ -30,6 +31,7 @@ class Evento extends Entity
         'data_inicio' => true,
         'data_fim' => true,
         'descricao' => true,
+        'data_lembrete' => true,
         'lembretes' => true,
     ];
 }

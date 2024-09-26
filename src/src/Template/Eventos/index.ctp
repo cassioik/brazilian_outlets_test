@@ -8,8 +8,6 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Evento'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Lembretes'), ['controller' => 'Lembretes', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Lembrete'), ['controller' => 'Lembretes', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="eventos index large-9 medium-8 columns content">
@@ -21,6 +19,7 @@
                 <th scope="col"><?= $this->Paginator->sort('nome_evento') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('data_inicio') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('data_fim') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('data_lembrete') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -31,6 +30,7 @@
                 <td><?= h($evento->nome_evento) ?></td>
                 <td><?= h($evento->data_inicio) ?></td>
                 <td><?= h($evento->data_fim) ?></td>
+                <td><?= h($evento->data_lembrete) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $evento->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $evento->id]) ?>
