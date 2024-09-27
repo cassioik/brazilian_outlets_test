@@ -14,7 +14,7 @@ class AddLembreteEnviadoToEventos extends AbstractMigration
     {
         $table = $this->table('eventos');
         $table->addColumn('lembrete_enviado', 'boolean', [
-            'default' => null,
+            'default' => false,
             'null' => false,
         ]);
         $table->update();

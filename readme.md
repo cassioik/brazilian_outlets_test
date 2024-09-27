@@ -30,7 +30,7 @@ ____
 - Rodar migration: `docker compose exec web bin/cake migrations migrate`
 - Acessar o sistema no navegador: `http://localhost:8080`
 - Para acessar o mailhog e ver os emails dos lembretes de evento acessar no navegador: `http://localhost:8025`
-- Para ver os logs da cron de envio de lembretes: `docker compose logs -f cron`
+- Para ver os logs da cron de envio de lembretes (a cron roda de minuto em minuto): `docker compose logs -f cron`
 - Para acessar o phpmyadmin: `http://localhost:8081`
     - usuario root: root
     - senha root: rootpass
@@ -53,4 +53,4 @@ ____
 - Criei o comando para envio de lembrete usando o comando do cake `bin/cake bake task` e `bin/cake bake shell`;
 - Criei o crud usando o comando do cakephp `bin/cake bake all`;
     - Decidi usar a arquiteturra padrão do cake, estou colocando a logica de negocio no Model, validação da data de lembrete tem que ser menor que a data de inicio e data de fim tem que ser maior que data de inicio.
--
+- Criei a todo list
