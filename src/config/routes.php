@@ -65,6 +65,13 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/', ['controller' => 'Eventos', 'action' => 'index']);
 
     /**
+     * Rota para informar que a tarefa esta completa ou não
+     */
+    $routes->connect('/tarefas/toggle/:id', ['controller' => 'Tarefas', 'action' => 'toggle'])
+        ->setPass(['id'])
+        ->setMethods(['POST']);
+
+    /**
      * ...and connect the rest of 'Pages' controller's URLs.
      */
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
