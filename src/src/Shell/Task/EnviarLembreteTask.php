@@ -2,7 +2,9 @@
 namespace App\Shell\Task;
 
 use Cake\Console\Shell;
+use Cake\I18n\Time;
 use Cake\Mailer\Email;
+use Cake\ORM\TableRegistry;
 
 /**
  * EnviarLembrete shell task.
@@ -29,14 +31,38 @@ class EnviarLembreteTask extends Shell
      */
     public function main()
     {
-        $this->out('Enviando lembrete...');
+        $currentDateTime = Time::now()->i18nFormat('yyyy-MM-dd HH:mm:ss');
+        $this->out("[$currentDateTime] Verificando lembretes...");
 
-        $email = new Email('default');
-        $email->setFrom(['no-reply@example.com' => 'My App'])
-              ->setTo('recipient@example.com')
-              ->setSubject('Lembrete')
-              ->send('Este é um lembrete enviado pelo CakePHP.');
+        /**
+         * Mais validações poderiam ser colocadas aqui, para não permitir
+         * enviar um lembrete de um evento que já teve inicio ou foi finalizado,
+         * por exemplo. Para fins de teste imagino que não seja necessário.
+         */
+        $eventosTable = TableRegistry::getTableLocator()->get('Eventos');
+        $eventos = $eventosTable->find()
+            ->where([
+                'lembrete_enviado' => false,
+                'data_lembrete IS NOT' => null,
+                'data_lembrete <=' => Time::now()
+            ])
+            ->all();
 
-        $this->out('Lembrete enviado com sucesso.');
+        $contador = 0;
+
+        foreach ($eventos as $evento) {
+            $email = new Email('default');
+            $email->setFrom(['no-reply@example.com' => 'Lembrete de evento']) // Deixei hardcoded para fins de teste
+                  ->setTo('recipient@example.com') // Deixei hardcoded para fins de teste
+                  ->setSubject('Lembrete: ' . $evento->nome_evento)
+                  ->send($evento->descricao);
+
+            $evento->lembrete_enviado = true;
+            $eventosTable->save($evento);
+
+            $contador++;
+        }
+
+        $this->out("Lembretes enviados: $contador");
     }
 }
