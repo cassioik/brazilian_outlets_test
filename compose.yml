@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
+      target: web
     container_name: cakephp_web
     volumes:
       - ./src:/var/www/html
@@ -15,6 +16,7 @@ services:
       DB_USERNAME: user
       DB_PASSWORD: pass
       DB_DATABASE: brazilian_outlets_db
+      DEBUG: true
 
   db:
     image: mysql:5.7
@@ -40,7 +42,36 @@ services:
       - "8081:80"
     environment:
       PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: rootpass
+
+  cron:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      target: cron
+    container_name: cakephp_cron
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - web
+    environment:
+      DB_HOST: db
+      DB_USERNAME: user
+      DB_PASSWORD: pass
+      DB_DATABASE: brazilian_outlets_db
+      DEBUG: false
+      EMAIL_CLASS_NAME: Smtp
+      EMAIL_HOST: mailhog
+      EMAIL_PORT: 1025
+      EMAIL_USERNAME: null
+      EMAIL_PASSWORD: null
+      EMAIL_TLS: null
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    ports:
+      - "8025:8025"
+      - "1025:1025"
 
 volumes:
   db_data:

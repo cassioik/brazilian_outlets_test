@@ -205,18 +205,12 @@ return [
      */
     'EmailTransport' => [
         'default' => [
-            'className' => MailTransport::class,
-            /*
-             * The following keys are used in SMTP transports:
-             */
-            'host' => 'localhost',
-            'port' => 25,
-            'timeout' => 30,
-            'username' => null,
-            'password' => null,
-            'client' => null,
-            'tls' => null,
-            'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
+            'className' => env('EMAIL_CLASS_NAME', 'Smtp'),
+            'host' => env('EMAIL_HOST', 'mailhog'),
+            'port' => env('EMAIL_PORT', 1025),
+            'username' => env('EMAIL_USERNAME', null),
+            'password' => env('EMAIL_PASSWORD', null),
+            'tls' => env('EMAIL_TLS', null),
         ],
     ],
 
@@ -233,8 +227,8 @@ return [
         'default' => [
             'transport' => 'default',
             'from' => 'you@localhost',
-            //'charset' => 'utf-8',
-            //'headerCharset' => 'utf-8',
+            'charset' => 'utf-8',
+            'headerCharset' => 'utf-8',
         ],
     ],
 

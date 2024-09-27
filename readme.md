@@ -28,6 +28,7 @@ ____
 - Rodar o projeto: `docker compose up -d`
 - Instalar as dependencias: `docker compose exec web composer install --ignore-platform-reqs`
 - Rodar migration: `docker compose exec web bin/cake migrations migrate`
+- Para acessar o mailhog e ver os emails dos lembretes de evento acessar: `http://localhost:8025`
 
 ### Comandos uteis:
 - Refresh das migrations:
