@@ -43,6 +43,8 @@ ____
     - `docker compose exec web bin/cake migrations migrate`
 
 ### OBS:
+- Agenda Pessoal é o menu Eventos
+- TODO List é o menu Tarefas
 - Pesquisei por um tempo como ajustar as versões das dependencias para rodar o cakephp 3.8 com o php 8.0.30, percebi que o problema é na dependencia do cakephp/bake, a "wyrihaximus/twig-view": "^4.3.7" requer "php": "^5.6 || ^7.0". Fiz o composer install com a opção --ignore-platform-reqs e esta funcional, acabou quebrando o DegubKit, então desativei ele, aparentemente o restante funciona corretamente.
 - Depois de montar as migrations e começar a desenvolver entendi como funciona as traduções, deveria ter feito tudo em inglês para facilitar as traduções pro português, por isso decidi não adicionar tradução no teste.
 
