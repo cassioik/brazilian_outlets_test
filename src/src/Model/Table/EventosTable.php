@@ -61,7 +61,17 @@ class EventosTable extends Table
         $validator
             ->dateTime('data_fim')
             ->requirePresence('data_fim', 'create')
-            ->notEmptyDateTime('data_fim');
+            ->notEmptyDateTime('data_fim')
+            ->add('data_fim', 'custom', [
+                'rule' => function ($value, $context) {
+                    $dataInicio = $context['data']['data_inicio'] ?? null;
+                    if ($dataInicio && $value) {
+                        return $value > $dataInicio;
+                    }
+                    return true;
+                },
+                'message' => 'A data de fim deve ser maior que a data de início.'
+            ]);
 
         $validator
             ->scalar('descricao')
@@ -69,7 +79,17 @@ class EventosTable extends Table
 
         $validator
             ->dateTime('data_lembrete')
-            ->allowEmptyDateTime('data_lembrete');
+            ->allowEmptyDateTime('data_lembrete')
+            ->add('data_lembrete', 'custom', [
+                'rule' => function ($value, $context) {
+                    $dataInicio = $context['data']['data_inicio'] ?? null;
+                    if ($dataInicio && $value) {
+                        return $value <= $dataInicio;
+                    }
+                    return true;
+                },
+                'message' => 'A data do lembrete não pode ser maior que a data de início.'
+            ]);
 
         return $validator;
     }

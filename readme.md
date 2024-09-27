@@ -34,3 +34,6 @@ ____
 - Refresh das migrations:
     - `docker compose exec web bin/cake migrations rollback -t 0`
     - `docker compose exec web bin/cake migrations migrate`
+
+### OBS:
+- Depois de montar as migrations e começar a desenvolver entendi como funciona as traduções, deveria ter feito tudo em inglês para facilitar as traduções pro português, por isso decidi não adicionar tradução no teste.
